@@ -1,0 +1,319 @@
+---
+title: "Harjutus seminar R"
+format: html
+editor: visual
+---
+
+## 1. Loeme paketid mällu
+
+```{r}
+#| echo: true
+#| warning: false
+library(sf)
+library(terra)
+library(tmap)
+library(dplyr)
+library(geodata)
+library(kableExtra)
+```
+
+## 2. SISSE LUGEMINE
+
+    Loeme sisse kõik kasutatavd andmefailid
+
+-   punktid csv failist
+
+```{r}
+eestipunktid=read.csv2("punktid.csv",row.names = 1)
+```
+
+-   soomaa shp
+
+```{r}
+soomaavektor=st_read("soomaa.shp")
+```
+
+-   raster paketi asemel kasutame paketti terra ja seal on 'rast'.
+
+R-i pakettidega on paljud rasterandmed ka otse kättesaadavad. Siin kasutame paketti geodata Eesti kõrgusandmete jaoks.
+
+```{r}
+korgusraster=elevation_30s('Est',"Lab1/") 
+```
+
+## 3. STRUKTUURID
+
+Uurime sisse laetud objekte
+
+```{r}
+str(eestipunktid)
+eestipunktid[1:2,]
+soomaavektor[1,]
+class(korgusraster)
+korgusraster
+```
+
+```{r}
+plot(eestipunktid$Longitude,eestipunktid$Latitude)
+```
+
+```{r}
+plot(korgusraster)
+```
+
+## 4. KOORDINAATSÜSEEMID
+
+Uurime nende objektide koordinaatsüsteeme
+
+```{r}
+st_crs(eestipunktid)
+st_crs(soomaavektor)
+st_crs(korgusraster)
+```
+
+Küsime arvutilt, kas on sama. '==' tähendab küsimust.
+
+```{r}
+st_crs(soomaavektor)==st_crs(korgusraster) 
+```
+
+Teeme koordinaatidest geograafilised punktid.
+
+Funktsioon: **st_as_sf()**
+
+```{r}
+eestipunktid_sf=st_as_sf(eestipunktid,coords=c("Longitude","Latitude"))
+class(eestipunktid_sf)
+```
+
+Määrame eestipunktidele koordinaatsüsteemi, kasutades funktsiooni **st_crs()**, rahvusvaheline kood on **4326**:
+
+```{r}
+st_crs(eestipunktid_sf)=4326
+```
+
+Loogiline selekteerimine
+
+```{r}
+plot(eestipunktid_sf[eestipunktid_sf$hfi<5,"hfi"])
+```
+
+## 5. PLOTTIMINE
+
+Vaatame punkte paketiga t-map
+
+```{r}
+m1=tm_basemap("OpenStreetMap")+
+  tm_shape(eestipunktid_sf) +tm_dots("Esri_label")
+leaflet=tmap_leaflet(m1)
+show(leaflet)
+
+```
+
+Mis valesti läks? Kuidas parandada? Parandame eespool ära ja proovime uuesti.
+
+Katsetame veel plottimisega
+
+```{r}
+plot(eestipunktid_sf) 
+```
+
+miks tuleb mitu plotti? Kuidas saada ainult üks?
+
+Vaatame ka ilusamat eesti kaarti
+
+```{r}
+m2=tm_basemap("https://tiles.maaamet.ee/tm/tms/1.0.0/foto@GMC/{z}/{x}/{y}.png",tms=T)+
+  tm_shape(eestipunktid_sf) + tm_dots("Esri_label")
+leaflet=tmap_leaflet(m2)
+show(leaflet)
+```
+
+## 6. PUNKTID POLÜGONI SEES
+
+Leiame kõik punktid, mis jäävad soomaa rahvuspargi sisse
+
+```{r}
+#| eval: false
+soomaal=st_intersection(eestipunktid_sf,soomaavektor) 
+```
+
+Mis valesti? Parandame ära. Proovime mõlemat pidi
+
+Funktsioonid **st_transform()** ja **project()**, eesti koordinaatsüsteemi kood on **3301**:
+
+```{r}
+soomaavektor=st_transform(soomaavektor,crs=st_crs(eestipunktid_sf))
+```
+
+Funktsioon **st_intersection()**
+
+```{r}
+soomaal=st_intersection(eestipunktid_sf,soomaavektor) 
+```
+
+#### Arvutame Soomaa rahvuspargi pindala, lisame selle tabelisse
+
+Funktsioon **st_area**
+
+All sf functions [`Simple Features for R`](https://r-spatial.github.io/sf/)
+
+```{r}
+pindala=st_area(soomaavektor)
+soomaavektor$pindala=pindala
+pindala
+```
+
+##### Vaatame ainult soomaa punkte **t-map** paketiga, lisame ka soomaa piirjoone, nii et punktid välja paistaksid
+
+```{r}
+m3=tm_basemap("https://tiles.maaamet.ee/tm/tms/1.0.0/foto@GMC/{z}/{x}/{y}.png",tms=T)+
+  tm_shape(soomaavektor)+tm_polygons(col="lightblue")+
+  tm_shape(soomaal) + tm_dots(col="darkblue",size=0.1)
+leaflet=tmap_leaflet(m3)
+show(leaflet)
+```
+
+## 7. FILTREERIMINE
+
+Filtreerime punktid, mille Esri_label on "Crops"
+
+Kõigepealt vaatame, mitu sellist punkti üldse on tabelis
+
+```{r}
+table(eestipunktid_sf$Esri_label)
+```
+
+Ära unusta seda koma! (see näitab, et valida tuleb kõik veerud)
+
+```{r}
+crops=eestipunktid_sf[eestipunktid_sf$Esri_label=="Crops",] 
+```
+
+```{r}
+length(crops) 
+```
+
+Miks ei ole 17?
+
+```{r}
+nrow(crops) 
+```
+
+Miks ikka ei ole 17?
+
+Teine variant paketiga [`dplyr`](https://dplyr.tidyverse.org/)
+
+```{r}
+crops=filter(eestipunktid_sf,Esri_label=="Crops") #ei kaasa NA ridu 
+plot(crops$geometry)
+class(crops) #jääb samaks, mis algsel objektil
+st_crs(crops)==st_crs(eestipunktid_sf) #jääb alles
+```
+
+## 8. PUHVRID
+
+Teeme 10 esimesele 'crops' punktile 5 km puhvrid ümber
+
+Pakett saab ise aru, et tahame meetreid, mitte kraade
+
+```{r}
+puhv=st_buffer(crops[1:10,],25000) 
+plot(puhv)
+```
+
+Arvutame puhvrite pindala funktsiooniga st_area ja lisame selle veeru:
+
+```{r}
+pindalad=st_area(puhv)
+puhv$area=pindalad 
+pindalad 
+```
+
+Vaatame paketiga t-map kaarti, värvime veeru "hfi" ehk human footprint indexi järgi,lisame parameetri alpha, et alad veidi läbi paistaksid
+
+```{r}
+m4=tm_basemap("https://tiles.maaamet.ee/tm/tms/1.0.0/foto@GMC/{z}/{x}/{y}.png",tms=T)+
+  tm_shape(puhv) +tm_polygons("hfi",alpha=0.8)+
+  tm_shape(soomaavektor)+tm_polygons(col="lightblue")
+leaflet=tmap_leaflet(m4)
+show(leaflet)
+```
+
+## 9. KATTUVUSED RASTRI JA VEKTORI VAHEL
+
+
+Leiame ala, kus puhvrite objekt kattub soomaaga
+
+**st_intersection**
+
+```{r}
+kattuvus=st_intersection(puhv,soomaavektor)
+plot(kattuvus$geometry)
+```
+
+## 10. RASTERANDMED 
+
+Kasutades enne sisse laetud kõrgusandmeid,leiame keskmise kõrguse soomaa rahvuspargis.
+
+Esmalt kontrollime, kas kihtide crs ühtib:
+
+```{r}
+st_crs(soomaavektor)==st_crs(korgusraster)
+```
+
+Lõikame kõrgusrasteri väiksemaks (ei ole tegelikult päringu tegemiseks vajalik)
+
+```{r}
+soomaakorgus=crop(korgusraster,soomaavektor)
+plot(soomaakorgus)
+soomaakorgus=mask(korgusraster,soomaavektor)
+plot(soomaakorgus) 
+```
+
+Mida need funktsioonid erinevalt teevad?
+
+Küsime väärtused soomaa rahvuspargi piirides
+
+```{r}
+soomaakorgused=unlist(terra::extract(korgusraster,soomaavektor))
+hist(soomaakorgused,50)
+mean(soomaakorgused)
+
+```
+
+Vaatame kaarti ka
+
+```{r}
+m5=tm_basemap("https://tiles.maaamet.ee/tm/tms/1.0.0/foto@GMC/{z}/{x}/{y}.png",tms=T)+
+  tm_shape(soomaavektor)+tm_borders(col="red")+
+  tm_shape(soomaakorgus)+tm_raster()
+leaflet=tmap_leaflet(m5)
+show(leaflet)
+```
+
+Muudame rasterkihi väärtusi -- nagu maatriksiga töötamine.
+
+Millised alad jäävad vee alla, kui merepind tõuseb 20 m?
+
+```{r}
+korgusraster.uus=korgusraster > 20
+plot(korgusraster.uus)
+```
+
+Kauguse arvutus punkti(de)st, tulemuseks uus rasterkiht
+
+```{r}
+kaugus_crop_punktidest=distance(korgusraster,crops)
+plot(kaugus_crop_punktidest)
+kaugus_crop_punktidest[is.na(korgusraster)]=NA
+plot(kaugus_crop_punktidest)
+plot(crops,add=TRUE,pch=16)
+```
+
+Salvestame uue rasterkihi
+
+```{r}
+writeRaster(kaugus_crop_punktidest,"kaugus_crop_punktidest.tif", overwrite = T)
+
+```

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>QGIS_1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="QGIS_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="QGIS_1_files/libs/quarto-html/quarto.js"></script>
+<script src="QGIS_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="QGIS_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="QGIS_1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="QGIS_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="QGIS_1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="QGIS_1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="QGIS_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="QGIS_1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">QGIS_1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="harjutus-seminar" class="level2">
+<h2 class="anchored" data-anchor-id="harjutus-seminar">Harjutus seminar</h2>
+<section id="i-read-data" class="level3">
+<h3 class="anchored" data-anchor-id="i-read-data">I) Read data</h3>
+<ul>
+<li><p><strong>Point data (.csv)</strong> Open a Delimited Text Layer</p>
+<p><img src="qgis_ss/QGIS_ss1.png" class="img-fluid"></p>
+<p><img src="qgis_ss/QGIS_ss2.png" class="img-fluid"></p></li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Check text delimiter (<strong>,</strong> , <strong>;</strong> , * *, …) in notepad</p>
+</div>
+</div>
+<p><img src="qgis_ss/QGIS_ss3.png" class="img-fluid"></p>
+<p><img src="qgis_ss/QGIS_ss4.png" class="img-fluid"></p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+NB!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Depending on your computer and language settings, the decimal separator might be a comma (,) or point (.). The file uses comma as decimal separator, if your computer uses point the file won’t be read properly.</p>
+</div>
+</div>
+<p>If all was done correctly you should see it: <img src="qgis_ss/QGIS_ss5.png" class="img-fluid" alt=")"></p>
+<ul>
+<li><strong>Vector data</strong></li>
+</ul>
+<p>Easiest way is just to drag the file (.shp) from the folder.</p>
+<p><img src="qgis_ss/gif_1.gif" class="img-fluid"></p>
+<ul>
+<li><strong>Raster data</strong></li>
+</ul>
+<p>Drag them from the folder just like the vector data, or also from the <strong>layer</strong> menu</p>
+<p><img src="qgis_ss/QGIS_ss6.png" class="img-fluid"></p>
+<p>You should see the 3 layers <img src="qgis_ss/QGIS_ss7.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="ii-check-properties-of-layers." class="level2">
+<h2 class="anchored" data-anchor-id="ii-check-properties-of-layers.">II) Check properties of layers.</h2>
+<ul>
+<li>Right click and open properties of the layer</li>
+</ul>
+<p><img src="qgis_ss/gif_2.gif" class="img-fluid"></p>
+<ul>
+<li>Right click on the point layer to open the attributes table</li>
+</ul>
+<p><img src="qgis_ss/QGIS_ss10.png" class="img-fluid"></p>
+<ul>
+<li>Change symbology base on columns</li>
+</ul>
+<ol type="1">
+<li>Right click on the layer</li>
+<li>Open layer properties</li>
+<li>Symbology</li>
+<li>Choose proper settings and a column to symbolize it</li>
+<li>Click <strong>Classify</strong> and <strong>Apply</strong></li>
+</ol>
+<p><img src="qgis_ss/QGIS_ss11.png" class="img-fluid"> Look how symbology changes</p>
+<p><img src="qgis_ss/QGIS_ss12.png" class="img-fluid"></p>
+<p>Try changing the symbology of the soomaa layer and the raster layer</p>
+<p>For the raster layer you can try: <img src="qgis_ss/QGIS_ss13.png" class="img-fluid"></p>
+<section id="iii-set-the-correct-crs-or-projecting" class="level3">
+<h3 class="anchored" data-anchor-id="iii-set-the-correct-crs-or-projecting">III) Set the correct CRS or projecting</h3>
+<ul>
+<li>Use the reproject function from the toolbox</li>
+</ul>
+<p><img src="qgis_ss/QGIS_ss8.png" class="img-fluid"> <img src="qgis_ss/QGIS_ss9.png" class="img-fluid"></p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Projections
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>QGIS projects input layers “on the fly” for visualization, the data does not change. For Spatial Operations you always need to set all layers on the same CRS. As a good practice always save your reprojected layers</p>
+</div>
+</div>
+<p>Reproject if necessary your layers. There is a function for reprojecting vector data, and a different one for raster data.</p>
+</section>
+</section>
+<section id="iv-spatial-join" class="level2">
+<h2 class="anchored" data-anchor-id="iv-spatial-join">IV) Spatial Join</h2>
+<p>From the <strong>ToolBox</strong> find <strong>Extract by location</strong></p>
+<p>Follow this guide:</p>
+<p><img src="qgis_ss/QGIS_ss14.png" class="img-fluid"></p>
+<p>You can look that a new layer appears. Open the attributes table and look how many points are there.</p>
+<p><img src="qgis_ss/QGIS_ss15.png" class="img-fluid"></p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Why <strong>Intersects</strong>?. Check more about <a href="https://postgis.net/docs/using_postgis_query.html#general-spatial-rel"><code>Spatial Queries</code></a></p>
+</div>
+</div>
+</section>
+<section id="v-select-by-attribute" class="level2">
+<h2 class="anchored" data-anchor-id="v-select-by-attribute">V) Select by attribute</h2>
+<ul>
+<li>Open the attribute table of the target layer (point layer)</li>
+<li>Click on <strong>Select features using a expression</strong> <img src="qgis_ss/QGIS_ss16.png" class="img-fluid"></li>
+</ul>
+<p>A new window opens. We have to create an expression to select features (points) based on the Esri_label column. You can directly write the expression to filter (QGIS is based on Python), or use the graphical interface to help you.</p>
+<p><img src="qgis_ss/QGIS_ss17.png" class="img-fluid"></p>
+<p>Write the expression: <strong>“Esri_label” = ‘Crops’</strong></p>
+<p>And click <strong>Select Features</strong></p>
+<p>Selected features are highlighted in the attribute table and in the map</p>
+<p><img src="qgis_ss/QGIS_ss18.png" class="img-fluid"></p>
+<ul>
+<li>Save the selected Features. Right click on the queried layer (points) and choose <strong>Export</strong> - <strong>Save selected features as</strong></li>
+</ul>
+<p>Choose a proper name and directory to save the new layer.</p>
+<p><img src="qgis_ss/QGIS_ss19.png" class="img-fluid"></p>
+</section>
+<section id="vi-buffers" class="level2">
+<h2 class="anchored" data-anchor-id="vi-buffers">VI) Buffers</h2>
+<ul>
+<li><p>Open the points attribute table and select 10 rows. <img src="qgis_ss/gif_4.gif" class="img-fluid"></p></li>
+<li><p>From the <strong>ToolBox</strong> find the <strong>Buffer</strong> function</p></li>
+<li><p>Choose the input layer</p></li>
+<li><p>Click on the Selected features box</p></li>
+<li><p>Fill with the desired distance and set the units</p></li>
+<li><p>Run</p></li>
+</ul>
+<p><img src="qgis_ss/QGIS_ss20.png" class="img-fluid"></p>
+<p>A new layer will be created (virtual, if you need it later you have to save it)</p>
+<p><img src="qgis_ss/QGIS_ss21.png" class="img-fluid"></p>
+</section>
+<section id="vii-field-calculator" class="level2">
+<h2 class="anchored" data-anchor-id="vii-field-calculator">VII) Field calculator</h2>
+<p>To calculate the buffers areas we need the <strong>Field calculator</strong></p>
+<ul>
+<li>Open the attribute table of the Buffers layer</li>
+<li>Click on <strong>Field calculator</strong> or Ctrl+i</li>
+</ul>
+<p><img src="qgis_ss/QGIS_ss22.png" class="img-fluid"></p>
+<ul>
+<li>Create a new field to store the area</li>
+<li>Look for the function <strong>$area</strong></li>
+<li>OK</li>
+</ul>
+<p><img src="qgis_ss/QGIS_ss23.png" class="img-fluid"></p>
+<ul>
+<li>A new column is created in the attributes table</li>
+</ul>
+<p><img src="qgis_ss/QGIS_ss24.png" class="img-fluid"></p>
+</section>
+<section id="viii-raster-data" class="level2">
+<h2 class="anchored" data-anchor-id="viii-raster-data">VIII) Raster data</h2>
+<section id="clip-raster-using-soomaa-vector" class="level4">
+<h4 class="anchored" data-anchor-id="clip-raster-using-soomaa-vector">Clip raster using Soomaa vector</h4>
+<ul>
+<li>Find from the <strong>ToolBox</strong> the function <strong>Clip Raster by Mask Layer</strong></li>
+<li>Select the input (the raster layer)</li>
+<li>Select the mask (soomaa layer)</li>
+<li>Run</li>
+</ul>
+<p><img src="qgis_ss/QGIS_ss25.png" class="img-fluid"></p>
+<ul>
+<li>The new Clipped layer is created. Remenber to save it if needed in the future</li>
+</ul>
+<p><img src="qgis_ss/QGIS_ss26.png" class="img-fluid"></p>
+</section>
+<section id="raster-layer-statistics" class="level4">
+<h4 class="anchored" data-anchor-id="raster-layer-statistics">Raster layer statistics</h4>
+<p>Get basic information of your clipped raster layer</p>
+<ul>
+<li>From the <strong>ToolBox</strong> look for <strong>Raster layer statistics</strong></li>
+<li>Open the summary</li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

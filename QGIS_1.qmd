@@ -1,0 +1,189 @@
+---
+title: "QGIS_1"
+format: html
+editor: visual
+---
+
+## Harjutus seminar
+
+### I) Read data
+
+-   **Point data (.csv)** Open a Delimited Text Layer
+
+    ![](qgis_ss/QGIS_ss1.png)
+
+    ![](qgis_ss/QGIS_ss2.png)
+
+::: callout-tip
+## Tip
+
+Check text delimiter (**,** , **;** , \* \*, ...) in notepad
+:::
+
+![](qgis_ss/QGIS_ss3.png)
+
+![](qgis_ss/QGIS_ss4.png)
+
+::: callout-warning
+## NB!
+
+Depending on your computer and language settings, the decimal separator might be a comma (,) or point (.). The file uses comma as decimal separator, if your computer uses point the file won't be read properly.
+:::
+
+If all was done correctly you should see it: ![)](qgis_ss/QGIS_ss5.png)
+
+-   **Vector data**
+
+Easiest way is just to drag the file (.shp) from the folder.
+
+![](qgis_ss/gif_1.gif)
+
+-   **Raster data**
+
+Drag them from the folder just like the vector data, or also from the **layer** menu
+
+![](qgis_ss/QGIS_ss6.png)
+
+You should see the 3 layers ![](qgis_ss/QGIS_ss7.png)
+
+## II) Check properties of layers.
+
+-   Right click and open properties of the layer
+
+![](qgis_ss/gif_2.gif)
+
+-   Right click on the point layer to open the attributes table
+
+![](qgis_ss/QGIS_ss10.png)
+
+-   Change symbology base on columns
+
+1)  Right click on the layer
+2)  Open layer properties
+3)  Symbology
+4)  Choose proper settings and a column to symbolize it
+5)  Click **Classify** and **Apply**
+
+![](qgis_ss/QGIS_ss11.png) Look how symbology changes
+
+![](qgis_ss/QGIS_ss12.png)
+
+Try changing the symbology of the soomaa layer and the raster layer
+
+For the raster layer you can try: ![](qgis_ss/QGIS_ss13.png)
+
+### III) Set the correct CRS or projecting
+
+-   Use the reproject function from the toolbox
+
+![](qgis_ss/QGIS_ss8.png) ![](qgis_ss/QGIS_ss9.png)
+
+::: callout-important
+## Projections
+
+QGIS projects input layers "on the fly" for visualization, the data does not change. For Spatial Operations you always need to set all layers on the same CRS. As a good practice always save your reprojected layers
+:::
+
+Reproject if necessary your layers. There is a function for reprojecting vector data, and a different one for raster data.
+
+## IV) Spatial Join
+
+From the **ToolBox** find **Extract by location**
+
+Follow this guide:
+
+![](qgis_ss/QGIS_ss14.png)
+
+You can look that a new layer appears. Open the attributes table and look how many points are there.
+
+![](qgis_ss/QGIS_ss15.png)
+
+::: callout-tip
+## 
+
+Why **Intersects**?. Check more about [`Spatial Queries`](https://postgis.net/docs/using_postgis_query.html#general-spatial-rel)
+:::
+
+## V) Select by attribute
+
+-   Open the attribute table of the target layer (point layer)
+-   Click on **Select features using a expression** ![](qgis_ss/QGIS_ss16.png)
+
+A new window opens. We have to create an expression to select features (points) based on the Esri_label column. You can directly write the expression to filter (QGIS is based on Python), or use the graphical interface to help you.
+
+![](qgis_ss/QGIS_ss17.png)
+
+Write the expression: **"Esri_label" = 'Crops'**
+
+And click **Select Features**
+
+Selected features are highlighted in the attribute table and in the map
+
+![](qgis_ss/QGIS_ss18.png)
+
+-   Save the selected Features. Right click on the queried layer (points) and choose **Export** - **Save selected features as**
+
+Choose a proper name and directory to save the new layer.
+
+![](qgis_ss/QGIS_ss19.png)
+
+## VI) Buffers
+
+-   Open the points attribute table and select 10 rows. ![](qgis_ss/gif_4.gif)
+
+-   From the **ToolBox** find the **Buffer** function
+
+-   Choose the input layer
+
+-   Click on the Selected features box
+
+-   Fill with the desired distance and set the units
+
+-   Run
+
+![](qgis_ss/QGIS_ss20.png)
+
+A new layer will be created (virtual, if you need it later you have to save it)
+
+![](qgis_ss/QGIS_ss21.png)
+
+## VII) Field calculator
+
+To calculate the buffers areas we need the **Field calculator**
+
+-   Open the attribute table of the Buffers layer
+-   Click on **Field calculator** or Ctrl+i
+
+![](qgis_ss/QGIS_ss22.png)
+
+-   Create a new field to store the area
+-   Look for the function **\$area**
+-   OK
+
+![](qgis_ss/QGIS_ss23.png)
+
+-   A new column is created in the attributes table
+
+![](qgis_ss/QGIS_ss24.png)
+
+## VIII) Raster data
+
+#### Clip raster using Soomaa vector
+
+-   Find from the **ToolBox** the function **Clip Raster by Mask Layer**
+-   Select the input (the raster layer)
+-   Select the mask (soomaa layer)
+-   Run
+
+![](qgis_ss/QGIS_ss25.png)
+
+-   The new Clipped layer is created. Remenber to save it if needed in the future
+
+![](qgis_ss/QGIS_ss26.png)
+
+#### Raster layer statistics
+
+Get basic information of your clipped raster layer
+
+-   From the **ToolBox** look for **Raster layer statistics**
+-   Open the summary
