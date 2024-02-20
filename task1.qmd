@@ -1,0 +1,71 @@
+---
+title: "QGIS_task1"
+format: pdf
+editor: visual
+---
+
+## 1. Read data
+
+-   ***Add Delimited Text Layer***:"punktid.csv"
+
+-   ***Add Vector Layer*** "soomaa.shp"
+
+-   ***Add Raster Layer*** "korgusraster.tif\*
+
+## 2. Check Data and metadata of layers
+
+-   Check layer ***Properties*** (CRS)
+
+-   Check ***Attribute Table*** (Columns, values)
+
+## 3. Reproject layers
+
+-   Set all layers to the same CRS (EPSG: 3301), use ***Reproject***, ***Warp***
+
+-   Save reprojected layers
+
+## 4. Change symbology
+
+Change the symbology of the layers:
+
+-   Points should represent the Esri_label
+
+-   Use a proper color ramp for the elevation raster
+
+## 5. Use ***Join Attributes by Location*** to find which Points are inside the soomaa vector
+
+## 6. Use ***Extract by Attribute*** to filter the points with "Crops" in the column "Esri_label"
+
+## 7. Using the selected "Crops" points, create a ***Buffer*** of 10km around them
+
+## 8. Use ***Intersection*** to see if any of the created Buffers intersects with the Soommaa layer. How large is the area? (***Field Calculator***)
+
+## 9. Crop/***Mask*** the elevation raster with the soomma vector layer
+
+## 10. Raster
+
+-   Use ***Raster layer statistics*** to get a basic summary of the clipped Raster
+
+-   Use ***Reclassify by Table*** to create a new elevation (eesti.korgu)raster. Values \<20 should be change to 0, values \>= 20 should change to 20
+
+        OR
+
+-   Change the symbology of the elevation raster (eesti.korgu) so values \>20 are in one color and values \>= have another color
+
+## 11. Map design
+
+-   Recreate the map #3 and map #5 of the R task (m3, m5)
+
+-   For map #3 change the symbology of the points so they represent the Corine_label
+
+-   A proper map for a cartographer should include a Title, North Arrow, a Scale Bar, and informative legends of what is represented.
+
+-   You can add a nice background layer. You can use the next steps for it (thanks to ["Klas Karlsson"](https://github.com/klakar):
+
+    a)  Open the link and copy the script from GitHub [`link`](https://github.com/klakar/QGIS_resources/blob/master/collections/Geosupportsystem/python/qgis_basemaps.py)
+    b)  In QGIS open the ***Python Console*** on the toolbar. Paste the script on the console and click Enter
+    c)  Close the python console
+    d)  On the Browser Panel, on the XYZ tiles section you should see now a set of layers. You can use this as Base maps (Figure 1)
+    e)  An alternative is to use a WMS from the ["Estonian Land Board"](https://geoportaal.maaamet.ee/eng/Services/Public-WMS-WFS-p346.html)
+
+![](Lab1/qgis_ss/XY_ss.png){width="80%"}

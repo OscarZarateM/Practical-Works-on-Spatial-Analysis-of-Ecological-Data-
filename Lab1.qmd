@@ -242,7 +242,6 @@ show(leaflet)
 
 ## 9. KATTUVUSED RASTRI JA VEKTORI VAHEL
 
-
 Leiame ala, kus puhvrite objekt kattub soomaaga
 
 **st_intersection**
@@ -252,7 +251,7 @@ kattuvus=st_intersection(puhv,soomaavektor)
 plot(kattuvus$geometry)
 ```
 
-## 10. RASTERANDMED 
+## 10. RASTERANDMED
 
 Kasutades enne sisse laetud kõrgusandmeid,leiame keskmise kõrguse soomaa rahvuspargis.
 
